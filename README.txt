@@ -18,3 +18,6 @@ DATA:
 - CSV export is for spreadsheets and not a full backup.
 - Clearing Safari website data may erase your records.
 - The three historical sample brews are approximations from prior user-provided notes. Check and edit their dates, details and ratings; ratings are illustrative.
+
+
+Version 1.2.0: Recipe Library, conditional equipment settings, tasting radar sliders. Database schema version 4; back up before updating.
