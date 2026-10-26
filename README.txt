@@ -1,25 +1,5 @@
-MY BREW LAB v1.0 — INSTALLATION
-
-The app is a static PWA using IndexedDB for local data. No backend or account is required.
-
-DEPLOY (recommended for iPad):
-1. Extract this ZIP in the Files app on iPad.
-2. Upload the complete folder's contents to any static HTTPS host (for example Netlify Drop, Cloudflare Pages, GitHub Pages).
-3. Open the published HTTPS address in Safari on iPad.
-4. Tap Share > Add to Home Screen > Add.
-5. Open My Brew Lab from Home Screen. Once loaded, the service worker caches app files for offline use.
-
-IMPORTANT: Opening index.html directly from the Files app is not the supported installation path; HTTPS hosting is needed for a reliable PWA and service worker.
-
-DATA:
-- IndexedDB data lives on the device and browser origin. It does NOT sync across devices.
-- Export JSON backups and save them to iCloud Drive regularly.
-- Import JSON merges records by ID.
-- CSV export is for spreadsheets and not a full backup.
-- Clearing Safari website data may erase your records.
-- The three historical sample brews are approximations from prior user-provided notes. Check and edit their dates, details and ratings; ratings are illustrative.
-
-
-Version 1.2.0: Recipe Library, conditional equipment settings, tasting radar sliders. Database schema version 4; back up before updating.
-
-Version 1.2.1: slider grinder, filter dependent on dripper, recipe edit keeps original ID, dashboard clock/date and optional weather via Open-Meteo (location permission).
+My Brew Lab v1.3.0
+Update file ke root GitHub Pages. Jangan hapus data Safari. Backup JSON terlebih dahulu.
+Calendar: klik tanggal/jam kanan atas lalu pilih tanggal untuk memfilter History.
+Weather: otomatis via Open-Meteo, default Jakarta; ubah kota di Settings.
+Gambar otomatis produk: belum disertakan dalam v1.3.0, memerlukan pemilihan sumber gambar dan lisensi.
