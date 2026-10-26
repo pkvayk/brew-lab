@@ -21,3 +21,5 @@ DATA:
 
 
 Version 1.2.0: Recipe Library, conditional equipment settings, tasting radar sliders. Database schema version 4; back up before updating.
+
+Version 1.2.1: slider grinder, filter dependent on dripper, recipe edit keeps original ID, dashboard clock/date and optional weather via Open-Meteo (location permission).
