@@ -356,6 +356,29 @@ html,body{min-height:100%;background:var(--page)}
 .smart-pour-tools select{flex:0 0 auto;min-width:0;max-width:110px}
 .smart-pour-tools #regeneratePours{display:inline-flex;align-items:center;justify-content:center;gap:5px;flex:0 0 auto;white-space:nowrap;padding:9px 10px;font-size:13px}
 @media(max-width:420px){.smart-pour-tools{gap:5px!important}.smart-pour-tools label{font-size:11px}.smart-pour-tools select{max-width:93px;padding:7px 4px;font-size:13px!important}.smart-pour-tools #regeneratePours{font-size:11px;padding:8px 6px}.smart-pour-tools #regeneratePours svg{width:14px;height:14px}}
+
+/* Review 10: consistent mobile section alignment */
+@media(max-width:600px){
+.dashboard-brews>.row:first-child{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:12px!important;flex-wrap:nowrap!important}
+.dashboard-brews>.row:first-child h2{margin:0!important;line-height:1.25!important}
+.dashboard-brews>.row:first-child .pill{margin:0!important;flex-shrink:0!important;align-self:center!important}
+.recent-flashcard .recent-expand{background:transparent!important;border:0!important;box-shadow:none!important;width:38px!important;height:38px!important;padding:0!important;border-radius:50%!important;display:grid!important;place-items:center!important;font-size:0!important;transform:none!important}
+.recent-flashcard .recent-expand::before{content:"";width:10px;height:10px;border-right:2px solid #777e87;border-bottom:2px solid #777e87;transform:translateY(-2px) rotate(45deg);transition:transform .2s}
+.recent-flashcard.expanded .recent-expand::before{transform:translateY(3px) rotate(225deg)}
+.activity-panel>.row{display:flex!important;align-items:center!important;justify-content:space-between!important;flex-wrap:nowrap!important;gap:10px!important}
+.activity-panel>.row h2{margin:0!important;line-height:1.25!important;min-width:0!important}
+.activity-panel #activityRange{margin:0!important;min-width:0!important;width:125px!important;flex-shrink:0!important}
+.journey-strip>h2{margin-bottom:4px!important}
+.journey-strip>p.muted{margin-top:0!important;margin-bottom:16px!important}
+.history-panel>.history-header{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:12px!important}
+.history-panel>.history-header>div{min-width:0!important;display:flex!important;flex-direction:column!important;gap:5px!important}
+.history-panel>.history-header h2,.history-panel>.history-header p{margin:0!important}
+.history-panel>.history-header .history-calendar-toggle{flex-shrink:0!important;align-self:center!important}
+.recipe-library-heading{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:12px!important}
+.recipe-library-heading>div{display:flex!important;flex-direction:column!important;gap:5px!important;min-width:0!important}
+.recipe-library-heading h2,.recipe-library-heading p{margin:0!important}
+.recipe-library-heading #newRecipe{align-self:center!important;flex-shrink:0!important}
+}
 </style><style>
 .language-picker{display:flex;gap:3px;align-items:center;padding:6px;background:#fff;border:1px solid #e7e9ec;border-radius:15px;box-shadow:0 3px 16px #20283005;white-space:nowrap}
 .language-picker button{border:0;background:transparent;color:#666e79;font:700 12px inherit;font-family:inherit;font-size:12px;font-weight:750;padding:10px 9px;border-radius:10px;cursor:pointer}
@@ -882,7 +905,7 @@ async function renderRecipes(){
  let recipes=(await all('recipes')).sort((a,b)=>(b.createdAt||'').localeCompare(a.createdAt||'')),brews=await all('brews');
  let counts={};brews.forEach(b=>{if(b.recipeId)counts[b.recipeId]=(counts[b.recipeId]||0)+1});
  let most=recipes.slice().sort((a,b)=>(counts[b.id]||0)-(counts[a.id]||0))[0];
- $('#content').innerHTML=`<section class="panel"><div class="row"><div><h2>Recipe Library</h2><p class="muted">Your personal brewing recipes</p></div><button class="btn primary" id="newRecipe">＋ New Recipe</button></div><div class="recipe-summary"><div><small>Total Recipes</small><strong>${recipes.length}</strong></div><div><small>Most Used Recipe</small><strong>${most&&counts[most.id]?esc(most.title||most.bean):'—'}</strong><small>${most&&counts[most.id]?counts[most.id]+' brewing sessions':'No linked brewing yet'}</small></div></div><div class="toolbar" style="margin:16px 0"><button class="btn recipe-filter active-filter" data-rfilter="all">All Recipes</button><button class="btn recipe-filter" data-rfilter="fav">★ Favorites</button><input class="search" id="recipeSearch" placeholder="Search recipes..." style="max-width:300px"></div><div id="recipeList" class="recipe-gallery"></div></section>`;
+ $('#content').innerHTML=`<section class="panel"><div class="row recipe-library-heading"><div><h2>Recipe Library</h2><p class="muted">Your personal brewing recipes</p></div><button class="btn primary" id="newRecipe">＋ New Recipe</button></div><div class="recipe-summary"><div><small>Total Recipes</small><strong>${recipes.length}</strong></div><div><small>Most Used Recipe</small><strong>${most&&counts[most.id]?esc(most.title||most.bean):'—'}</strong><small>${most&&counts[most.id]?counts[most.id]+' brewing sessions':'No linked brewing yet'}</small></div></div><div class="toolbar" style="margin:16px 0"><button class="btn recipe-filter active-filter" data-rfilter="all">All Recipes</button><button class="btn recipe-filter" data-rfilter="fav">★ Favorites</button><input class="search" id="recipeSearch" placeholder="Search recipes..." style="max-width:300px"></div><div id="recipeList" class="recipe-gallery"></div></section>`;
  let filter='all';
  function paint(){
  const q=$('#recipeSearch').value.toLowerCase();
@@ -926,11 +949,12 @@ const pairs=[
 ['Select your equipment first; advanced settings appear only when needed.','Pilih alat terlebih dahulu; pengaturan lanjut hanya muncul jika diperlukan.'],
 ['Berat air kumulatif di setiap tahap. Bisa diedit tanpa scale.','Berat air kumulatif di setiap tahap. Bisa diedit tanpa scale.'],
 ['Data disimpan secara lokal di browser. Simpan backup JSON secara berkala sebelum pembaruan.','Data disimpan secara lokal di browser. Simpan backup JSON secara berkala sebelum pembaruan.'],
-['New Recipe','Resep Baru'],['All','Semua'],['Favorite Beans','Biji Kopi Favorit'],['Natural','Natural'],['Full Washed','Full Washed'],['Semi Washed','Semi Washed'],['Roastery','Roastery'],['Grind minimum','Gilingan minimum'],['Grind maximum','Gilingan maksimum'],['Grind step','Langkah gilingan'],['Grind unit (grinder)','Satuan gilingan (grinder)'],['Compatible drippers (paper filter, separate by commas)','Dripper kompatibel (filter kertas, pisahkan dengan koma)'],['Manual / stovetop','Manual / kompor'],['Electric','Elektrik'],['Brew History','Riwayat Seduh'],['Add New Bean','Tambah Biji Kopi Baru'],['Import','Impor'],['Export','Ekspor'],['Apply','Terapkan'],['Close','Tutup'],['No data yet','Belum ada data'],['No brews yet','Belum ada seduhan'],['No recipes yet','Belum ada resep'],['Filter','Filter'],['Date','Tanggal'],['Rating','Penilaian'],['Method','Metode'],['Brewing','Seduhan'],['All time','Sepanjang waktu'],['Last 7 days','7 hari terakhir'],['Last 30 days','30 hari terakhir'],['Coffee & Brewing Setup','Pengaturan Kopi & Seduh'],['Equipment Setup','Pengaturan Peralatan'],['Brewing Parameters','Parameter Seduh'],['Pouring Schedule','Jadwal Tuang'],['Choose your equipment first; advanced settings appear only when needed.','Pilih alat terlebih dahulu; pengaturan lanjut hanya muncul jika diperlukan.'],
+['New Recipe','Resep Baru'],['All','Semua'],['Favorite Beans','Biji Kopi Favorit'],['Natural','Natural'],['Full Washed','Full Washed'],['Semi Washed','Semi Washed'],['Roastery','Roastery'],['Grind minimum','Gilingan minimum'],['Grind maximum','Gilingan maksimum'],['Grind step','Langkah gilingan'],['Grind unit (grinder)','Satuan gilingan (grinder)'],['Compatible drippers (paper filter, separate by commas)','Dripper kompatibel (filter kertas, pisahkan dengan koma)'],['Manual / stovetop','Manual / kompor'],['Electric','Elektrik'],['Brew History','Riwayat Seduh'],['Add New Bean','Tambah Biji Kopi Baru'],['Import','Impor'],['Export','Ekspor'],['Apply','Terapkan'],['Close','Tutup'],['No data yet','Belum ada data'],['No brews yet','Belum ada seduhan'],['No recipes yet','Belum ada resep'],['Filter','Filter'],['Date','Tanggal'],['Rating','Penilaian'],['Method','Metode'],['Brewing','Seduhan'],['All time','Sepanjang waktu'],['Last 7 days','7 hari terakhir'],['Last 30 days','30 hari terakhir'],['Coffee & Brewing Setup','Pengaturan Kopi & Seduh'],['Equipment Setup','Pengaturan Peralatan'],['Brewing Parameters','Parameter Seduh'],['Pouring Schedule','Jadwal Tuang'],['Your personal brewing recipes','Koleksi resep seduhan pribadi Anda'],['All activities','Semua aktivitas'],['records','catatan'],['record','catatan'],['brewing sessions','sesi seduh'],['No linked brewing yet','Belum ada sesi seduh terkait'],['Total Brews','Total Seduhan'],['Unique coffee beans','Jenis biji kopi unik'],['Rated sessions','Sesi yang dinilai'],['Most frequently brewed','Paling sering diseduh'],['Most frequently used','Paling sering digunakan'],['Not Rated','Belum Dinilai'],['Your Favorite','Favorit Anda'],['All Time','Sepanjang Waktu'],['7 Days','7 Hari'],['14 Days','14 Hari'],['30 Days','30 Hari'],['Brewed','Sudah Diseduh'],['Brewed & Tasted','Diseduh & Dicicipi'],['Draft','Draf'],['Detail','Detail'],['New Recipe','Resep Baru'],['New Brew','Seduh Baru'],['New Coffee Bean','Biji Kopi Baru'],['Save & Select','Simpan & Pilih'],['Cancel','Batal'],['Save','Simpan'],['Regenerate','Buat Ulang'],['Number of Pours','Jumlah Tuangan'],['Add Pour','Tambah Tuangan'],['Pour','Tuangan'],['Target Brewing Time','Target Waktu Seduh'],['Brew Water','Air Seduh'],['Search recipes...','Cari resep...'],['Search equipment...','Cari peralatan...'],['Filter by calendar','Saring berdasarkan kalender'],['Open brewing calendar','Buka kalender seduh'],['More pages','Menu lainnya'],['Home','Beranda'],['Menu','Menu'],['Your Coffee Journey','Perjalanan Kopi Anda'],['Coffee Bean','Biji Kopi'],['Equipment Library','Pustaka Peralatan'],['Backup & Restore','Cadangkan & Pulihkan'],['New Brewing Session','Sesi Seduh Baru'],['Quick Add','Tambah Cepat'],['Finish Brewing','Selesaikan Seduhan'],['Save Draft','Simpan Draf'],['Save Recipe','Simpan Resep'],['Search recipes','Cari resep'],['Search beans','Cari biji kopi'],['All Recipes','Semua Resep'],['All Beans','Semua Biji Kopi'],['All activities ·','Semua aktivitas ·'],['Search recipes...','Cari resep...'],['Your personal brewing recipes','Resep seduhan pribadi Anda'],
+['Choose your equipment first; advanced settings appear only when needed.','Pilih alat terlebih dahulu; pengaturan lanjut hanya muncul jika diperlukan.'],
 ['Choose your equipment first; advanced settings appear only when needed.','Pilih alat terlebih dahulu; pengaturan lanjut hanya muncul jika diperlukan.'],['Cumulative water weight at each step. Editable without a scale.','Berat air kumulatif di setiap tahap. Bisa diedit tanpa scale.'],['Data is stored locally in your browser. Back up your JSON regularly before updating.','Data disimpan secara lokal di browser. Simpan backup JSON secara berkala sebelum pembaruan.'],['Equipment Library','Pustaka Peralatan'],['Add Equipment','Tambah Peralatan'],['Brand','Merek'],['Model','Model'],['Type','Tipe'],['Capacity (ml)','Kapasitas (ml)'],['Notes','Catatan'],['Save Equipment','Simpan Peralatan'],['Backup & Export','Cadangkan & Ekspor'],['Export JSON','Ekspor JSON'],['Export CSV','Ekspor CSV'],['Import JSON','Impor JSON'],['Reset','Atur Ulang'],['Save','Simpan'],['Today','Hari ini'],['Clear','Bersihkan'],['Before ice','Sebelum es'],['After ice','Setelah es']
 ];
 const enToId=new Map(pairs),idToEn=new Map(pairs.map(([en,id])=>[id,en]));
-const skip='input,textarea,option,script,style,[contenteditable],.brew-main strong,.brew-main small,.bean-card,.bean-name,.recipe-name,.favorite-brew-name,.brew-card-title';
+const skip='script,style,[contenteditable],.brew-main strong,.brew-main small,.bean-card,.bean-name,.recipe-name,.favorite-brew-name,.brew-card-title';
 const langKey='mbl-language';
 let lang=localStorage.getItem(langKey)==='id'?'id':'en',running=false;
 let obs=null;
@@ -949,9 +973,26 @@ function translate(){if(running)return;running=true;if(obs)obs.disconnect();try{
   let original=originals.get(n);
   if(!original||(![original,enToId.get(original),idToEn.get(original),extraIdToEn.get(original)].includes(trim))){original=trim;originals.set(n,original)}
   const en=extraIdToEn.get(original)||idToEn.get(original)||original;
-  const target=lang==='id'?(enToId.get(en)||original):en;
+  let target=lang==='id'?(enToId.get(en)||original):en;
+  if(target===en){
+   const m=en.match(/^(All activities|Semua aktivitas) · (\d+) (records|catatan)$/);
+   if(m)target=lang==='id'?`Semua aktivitas · ${m[2]} catatan`:`All activities · ${m[2]} records`;
+   const n=en.match(/^(\d+) (brewing sessions|sesi seduh)$/);
+   if(n)target=lang==='id'?`${n[1]} sesi seduh`:`${n[1]} brewing sessions`;
+  }
   if(trim!==target)n.nodeValue=raw.replace(trim,target);
  }
+ // Translate UI attributes and placeholders without touching entered values.
+ document.querySelectorAll('[placeholder],[title],[aria-label]').forEach(el=>{
+  for(const attr of ['placeholder','title','aria-label']){
+   if(!el.hasAttribute(attr))continue;
+   const key='mblOriginal'+attr;let base=el.dataset[key];const current=el.getAttribute(attr);
+   if(!base){base=extraIdToEn.get(current)||idToEn.get(current)||current;el.dataset[key]=base;}
+   const english=extraIdToEn.get(base)||idToEn.get(base)||base;
+   const localized=lang==='id'?(enToId.get(english)||english):english;
+   if(current!==localized)el.setAttribute(attr,localized);
+  }
+ });
  document.querySelectorAll('[data-lang]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.lang===lang)));
  document.getElementById('currentFlag').textContent=lang==='id'?'🇮🇩':'🇺🇸';
  document.getElementById('currentLanguage').textContent=lang==='id'?'Bahasa Indonesia':'English (US)';
