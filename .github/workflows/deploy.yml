@@ -2,12 +2,6 @@
 name: My Brew Lab - Deploy ZIP
 
 on:
-  push:
-    branches:
-      - stable-setup
-    paths:
-      - "updates/*.zip"
-      - ".github/workflows/deploy.yml"
   workflow_dispatch:
 
 permissions:
