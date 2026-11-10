@@ -1,0 +1,21 @@
+
+name: My Brew Lab - Stable Candidate Check
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check project files
+        run: |
+          test -f index.html
+          echo "Project files found."
+          echo "Stable candidate check passed."
